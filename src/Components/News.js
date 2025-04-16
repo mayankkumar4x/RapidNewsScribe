@@ -15,19 +15,61 @@ const News=(props)=>{
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   
-
+  const getDateRange = () => {
+    let fromDate = new Date();
+    let toDate = new Date();
+  
+    switch (props.dateRange) {
+      case "today":
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+        break;
+      case "yesterday":
+        fromDate = new Date(Date.now() - 86400000);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate = new Date(Date.now() - 86400000);
+        toDate.setHours(23, 59, 59, 999);
+        break;
+      case "7days":
+        fromDate = new Date(Date.now() - 7 * 86400000);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+        break;
+      case "30days":
+        fromDate = new Date(Date.now() - 30 * 86400000);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+        break;
+      case "custom":
+        fromDate = new Date(props.customFrom);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate = new Date(props.customTo);
+        toDate.setHours(23, 59, 59, 999);
+        break;
+    }
+  
+    return {
+      from: fromDate.toISOString(),
+      to: toDate.toISOString(),
+    };
+  };
+  
   
 
   const update=async()=> {
     props.setProgress(10);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=e4ac901088be431da066739fd5dd2fbc&page=${page}&pagesize=${props.pageSize}`;
+    const { from, to } = getDateRange();
+    // console.log("Fetching from:", from, "to:", to);
+
+    const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&country=${props.country}&lang=${props.lang}&apikey=165e6580bc151548c5284b72d18d29e8&page=${page}&pagesize=${props.pageSize}`;
+    // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&country=${props.country}&lang=${props.lang}&apiKey=e4ac901088be431da066739fd5dd2fbc&page=${page}&pagesize=${props.pageSize}`;
     props.setProgress(30);
     setLoading(false)
     let data = await fetch(url);
     props.setProgress(60);
     let parsedata = await data.json();
     props.setProgress(80);
-    console.log(parsedata);
+    // console.log(parsedata);
     setArticles(parsedata.articles)
     setTotalResults(parsedata.totalResults)
     setLoading(true);
@@ -36,61 +78,41 @@ const News=(props)=>{
   useEffect(()=>{
      document.title = `${capitalizeFirstLetter(props.category)} - NewsApp`;
   update();
-  },[])
-  
-  const prevfun = async () => {
-   
-    setPage(--page)
-    update();
-  }
-  const nextfun = async () => {
-   setPage(++page)
-    update();
-  }
-  const fetchMoreData = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=e4ac901088be431da066739fd5dd2fbc&page=${page+1}&pagesize=${props.pageSize}`;
-    setPage(page+1)
+  },[props.lang,props.category,props.country,props.dateRange, props.customFrom, props.customTo])
 
-    let data = await fetch(url);
-    let parsedata = await data.json();
-    // console.log(parsedata);
-    setArticles(articles.concat(parsedata.articles))
-    setTotalResults(parsedata.totalResults)
-  };
  
     return (<>
       <h2 className='text-center' style={{ margin: '70px 0px' }}>Top {capitalizeFirstLetter(props.category)} Headlines</h2>
       {!loading && <Spinner />}
-      <InfiniteScroll
-        dataLength={articles.length}
-        next={fetchMoreData}
-        hasMore={articles.length !== totalResults}
-        loader={<Spinner />}
-      >
-        {/* {items.map((i, index) => (
-            <div style={style} key={index}>
-            div - #{index}
-            </div>
-          ))} */}
-        <div className='container my-3'>
-          <div className='row'>
-            {articles.map((element) => {
-              return (<div className='col-md-4' key={element.url}>
-                <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} url={element.url} author={element.author} publishedAt={element.publishedAt} name={element.source.name} />
-              </div>);
-            })}
-          </div></div>
-      </InfiniteScroll>
-      {/* <div className="d-flex justify-content-between">
-          <button disabled={page==1} type="button" className="btn btn-dark" onClick={prevfun}>&larr;Previous</button>
-          <button type="button" disabled={page+1 > Math.ceil(totalResults/props.pageSize)} className="btn btn-dark" onClick={nextfun}>Next&rarr;</button>
-        </div> */}
-
-
-      {/* <div className='col-md-4'>
-            <NewsItem title="mytitile" description="mydescription" imageUrl="https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg"/>
-        </div> */}
-
+      <div className='container my-3'>
+  {articles.length === 0 ? (
+    <div className="text-center my-5">
+      <h4>😕 No news articles available</h4>
+      <p>
+        Sorry, we couldn't find any news for this language or country right now.
+        Please try a different selection or check back later.
+      </p>
+    </div>
+  ) : (
+    <div className='row'>
+      {articles.map((element) => (
+        <div className='col-md-4 mb-4' key={element.url}>
+          <NewsItem
+            title={element.title}
+            lang={props.lang}
+            description={element.description}
+            // imageUrl={element.urlToImage}
+            imageUrl={element.image}
+            url={element.url}
+            author={element.author}
+            publishedAt={element.publishedAt}
+            name={element.source.name}
+          />
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 
     </>)
   
