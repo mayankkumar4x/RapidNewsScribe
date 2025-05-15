@@ -61,7 +61,8 @@ const News=(props)=>{
     const { from, to } = getDateRange();
     // console.log("Fetching from:", from, "to:", to);
 
-    const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&country=${props.country}&lang=${props.lang}&apikey=165e6580bc151548c5284b72d18d29e8&page=${page}&pagesize=${props.pageSize}`;
+    const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&country=${props.country}&apikey=165e6580bc151548c5284b72d18d29e8&page=${page}&pagesize=${props.pageSize}`;
+    // const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&country=${props.country}&lang=${props.lang}&apikey=165e6580bc151548c5284b72d18d29e8&page=${page}&pagesize=${props.pageSize}`;
     // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&country=${props.country}&lang=${props.lang}&apiKey=e4ac901088be431da066739fd5dd2fbc&page=${page}&pagesize=${props.pageSize}`;
     props.setProgress(30);
     setLoading(false)
@@ -97,7 +98,7 @@ const News=(props)=>{
     <div className='row'>
       {articles.map((element) => (
         <div className='col-md-4 mb-4' key={element.url}>
-          <NewsItem
+          <NewsItem mode={props.mode}
             title={element.title}
             lang={props.lang}
             description={element.description}

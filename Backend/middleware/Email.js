@@ -1,19 +1,6 @@
 const { transporter } = require("./emailConfig");
 const { Verification_Email_Template, Welcome_Email_Template } = require("./emailTemplate");
-// const SendVerificationCode=async(email,verificationCode)=>{
-//     try{
-//         const response = await transporter.sendMail({
-//               from: '"RapidNewsScribe 👻" <mayankkumar4x@gmail.com>',
-//               to: email,
-//               subject: "Verify Your Email",
-//               text: "Verify Your Email",
-//               html: Verification_Email_Template(verificationCode),
-//             });
-//             console.log("Email send successfully",response)
-//     }catch(error){
-//     console.log("Email error")
-//     }
-// }
+
 
 const SendVerificationCode = async (email, code) => {
     try {

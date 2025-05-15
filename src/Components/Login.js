@@ -5,7 +5,7 @@ import { API_URL } from '../api';
 const Login = (props) => {
     const [credential, setCredential] = useState({ email: "", password: "" });
     const [emailForReset, setEmailForReset] = useState(""); // For forgot password
-    const [showForgotPassword, setShowForgotPassword] = useState(false); // Modal control
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     let history = useNavigate();
 
     const handleSubmit = async (e) => {

@@ -6,8 +6,8 @@ const Note = require('../models/Note');
 const { body, validationResult } = require('express-validator');
 //Route 1:Get all notes using: GET "/api/note/fetchallnotes",Login required
 router.get('/fetchallnotes', fetchuser, async (req, res) => {
-    try {     
-         const note = await Note.find({ user: req.user.id })
+    try {
+        const note = await Note.find({ user: req.user.id })
         res.json(note);
     }
     catch (error) {
@@ -15,13 +15,13 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-  
+
 //Route 2:Add a new note using: POST "/api/note/addnote",Login required
 router.post('/addnote', fetchuser, [body('title', 'Title must be at least 3 characters').isLength({ min: 3 }),
 body('description', 'Description must be in at least 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
     try {
-        const { title, description,newsUrl,tag } = req.body;
+        const { title, description, newsUrl, tag } = req.body;
         //If there are errors, return Bad request and the errors
         console.log(newsUrl);
         const errors = validationResult(req);
@@ -30,7 +30,7 @@ body('description', 'Description must be in at least 5 characters').isLength({ m
         }
         //creating new notes
         const note = new Note({
-            title, description, newsUrl,tag, user: req.user.id
+            title, description, newsUrl, tag, user: req.user.id
         })
         const saveNote = await note.save();
         res.json(saveNote);
@@ -42,7 +42,7 @@ body('description', 'Description must be in at least 5 characters').isLength({ m
 })
 //Route 3:Update an existing Note using: POST "/api/note/updatenote",Login required
 router.put('/updatenote/:id', fetchuser, async (req, res) => {
-    const { title, description, newsUrl,tag } = req.body;
+    const { title, description, newsUrl, tag } = req.body;
     try {
         //Create a newNote object
         const newNote = {};

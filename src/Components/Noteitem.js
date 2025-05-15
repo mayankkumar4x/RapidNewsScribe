@@ -1,35 +1,55 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import noteContext from '../context/notes/noteContext';
 
 const Noteitem = (props) => {
-    const { note, updateNote } = props;
-    const context = useContext(noteContext);
-    const { deleteNote } = context;
-    return (
+  const { note, updateNote, mode } = props;
+  const context = useContext(noteContext);
+  const { deleteNote } = context;
 
-        <div className="card col-md-5 m-3">
+  const cardClass = `card col-md-5 m-3 shadow ${
+    mode === 'dark' ? 'bg-secondary text-light border border-light' : 'bg-light text-dark'
+  }`;
 
-            <div className="card-body p-0">
-                <div className="d-flex align-items-center justify-content-between bg-light text-dark p-2">
-                    <h5 className="card-title">{note.title}</h5>
-                    <span>
-                    <i className="fa-solid fa-pen-to-square text-success mx-3" onClick={() => updateNote(note)}></i>
-                    <i className="fa-solid fa-trash text-danger" onClick={() => {
-                        deleteNote(note._id);
-                        props.showAlert("Deleted successfully", "success");
-                    }}></i>
-                    </span>
+  const headerClass = `d-flex align-items-center justify-content-between p-2 ${
+    mode === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'
+  }`;
 
-                </div>
-
-                <p className="card-text p-2">{note.description}</p>
-                <div className='p-2'>
-                    <a className='btn btn-primary p-12' href={note.newsUrl} target='_blank'>News Link</a>
-                </div>
-                {/* <p className="card-text">{note.newsUrl}</p> */}
-            </div>
+  return (
+    <div className={cardClass}>
+      <div className="card-body p-0">
+        <div className={headerClass}>
+          <h5 className="card-title mb-0">{note.title}</h5>
+          <span>
+            <i
+              className="fa-solid fa-pen-to-square text-success mx-3"
+              onClick={() => updateNote(note)}
+              role="button"
+            ></i>
+            <i
+              className="fa-solid fa-trash text-danger"
+              onClick={() => {
+                deleteNote(note._id);
+                props.showAlert("Deleted successfully", "success");
+              }}
+              role="button"
+            ></i>
+          </span>
         </div>
-    )
-}
 
-export default Noteitem
+        <p className="card-text p-2">{note.description}</p>
+        <div className="p-2">
+          <a
+            className={`btn btn-sm ${mode === 'dark' ? 'btn-outline-light' : 'btn-primary'}`}
+            href={note.newsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            News Link
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Noteitem;

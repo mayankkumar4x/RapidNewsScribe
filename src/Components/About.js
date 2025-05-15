@@ -11,8 +11,8 @@ const About = () => {
       <section className="about-content">
         <h2>📌 What is NewsApp?</h2>
         <p>
-          NewsApp is a dynamic platform designed to keep you updated with the latest headlines 
-          across various categories, including Business, Sports, Technology, and more. It allows 
+          NewsApp is a dynamic platform designed to keep you updated with the latest headlines
+          across various categories, including Business, Sports, Technology, and more. It allows
           users to take notes on articles and filter news based on language preferences.
         </p>
 

@@ -88,7 +88,7 @@ export default function Notes(props) {
   <div className="d-flex flex-wrap justify-content-center gap-3">
     {notes.length ? (
       notes.map((note) => (
-        <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+        <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} mode={props.mode}/>
       ))
     ) : (
       <div className="text-center w-100">

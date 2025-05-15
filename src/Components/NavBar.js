@@ -16,7 +16,6 @@ const NavBar = (props) => {
     try {
       const decoded = jwtDecode(token);
       userEmail = decoded.user.email;
-      // console.log(userEmail);
     } catch (error) {
       console.error("Invalid token", error);
     }
@@ -65,6 +64,9 @@ const NavBar = (props) => {
           <li className="nav-item">
             <Link className="nav-link" to="/about">About</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/contact">Contact Us</Link>
+          </li>
           <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
@@ -86,33 +88,13 @@ const NavBar = (props) => {
               <li><button className="dropdown-item" onClick={() => handleCategoryChange("technology")}>Technology</button></li>
             </ul>
           </li>
-
-          {/* <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Categories
-            </a>
-            <ul className="dropdown-menu custom-dropdown">
-              <li><Link className="dropdown-item" to="/">General</Link></li>
-              <li><Link className="dropdown-item" to="/business">Business</Link></li>
-              <li><Link className="dropdown-item" to="/entertainment">Entertainment</Link></li>
-              <li><Link className="dropdown-item" to="/health">Health</Link></li>
-              <li><Link className="dropdown-item" to="/science">Science</Link></li>
-              <li><Link className="dropdown-item" to="/sports">Sports</Link></li>
-              <li><Link className="dropdown-item" to="/technology">Technology</Link></li>
-            </ul> */}
           <li className="nav-item">
             <Link className="nav-link" to="/notes">Notes</Link>
           </li>
         </ul>
 
         <div className="d-flex align-items-center">
-          <select
+          {/* <select
             className="form-select form-select-sm mx-2 custom-language-select"
             value={props.lang}
             onChange={handleLanguageChange}
@@ -122,7 +104,7 @@ const NavBar = (props) => {
             <option value="ta">Tamil</option>
             <option value="te">Telugu</option>
             <option value="mr">Marathi</option>
-          </select>
+          </select> */}
 
           <select
             className="form-select form-select-sm mx-2 custom-language-select"
@@ -131,40 +113,32 @@ const NavBar = (props) => {
           >
             <option value="in">India</option>
             <option value="us">United States</option>
-            <option value="pk">Pakistan</option>
             <option value="gb">United Kingdom</option>
+            <option value="pk">Pakistan</option>
+            <option value="cn">China</option>
+            <option value="bd">Bangladesh</option>
+            <option value="ru">Russia</option>
+            <option value="ae">United Arab Emirates</option>
+            <option value="sa">Saudi Arabia</option>
+            <option value="au">Australia</option>
+            <option value="ca">Canada</option>
+            <option value="sg">Singapore</option>
+            <option value="np">Nepal</option>
+            <option value="lk">Sri Lanka</option>
+            <option value="af">Afghanistan</option>
+            <option value="jp">Japan</option>
+            <option value="de">Germany</option>
           </select>
 
+
           <div className="dropdown mx-2">
-            {/* <button
-    className="btn btn-sm btn-outline-light dropdown-toggle"
-    type="button"
-    id="dateRangeDropdown"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    {(() => {
-      switch (dateRange) {
-        case "today": return "Today";
-        case "yesterday": return "Yesterday";
-        case "7days": return "Last 7 Days";
-        case "30days": return "Last 30 Days";
-       case "custom": return "Custom Range";
-        default: return "Select Range";
-      }
-    })()}
-  </button>
-  <ul className="dropdown-menu" aria-labelledby="dateRangeDropdown">
-    <li><button className="dropdown-item" onClick={() => setDateRange("today")}>Today</button></li>
-    <li><button className="dropdown-item" onClick={() => setDateRange("yesterday")}>Yesterday</button></li>
-    <li><button className="dropdown-item" onClick={() => setDateRange("7days")}>Last 7 Days</button></li>
-    <li><button className="dropdown-item" onClick={() => setDateRange("30days")}>Last 30 Days</button></li>
-    <li><button className="dropdown-item" onClick={() => setDateRange("custom")}>Custom Range</button></li>
-  </ul> */}
           </div>
-
-
-
+          <button
+            className="btn btn-outline-light mx-2 custom-btn"
+            onClick={props.toggleMode}
+          >
+            {props.mode === 'dark' ? '☀️ Light' : '🌙 Dark'}
+          </button>
           {!token ? (
             <div className="d-flex">
               <Link className="btn btn-outline-light mx-2 custom-btn" to="/Login">

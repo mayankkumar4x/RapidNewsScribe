@@ -28,4 +28,3 @@ const NotesSchema = new Schema({
     },
 })
 module.exports = mongoose.model('note', NotesSchema)
-//name and schema

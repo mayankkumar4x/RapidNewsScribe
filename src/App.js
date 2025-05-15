@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from './Components/NavBar';
 import News from './Components/News';
+import Contact from './Components/Contact';
 import Alert from './Components/Alert';
 import Login from './Components/Login';
 import ResetPassword from "./Components/ResetPassword";
@@ -26,6 +27,11 @@ const App = () => {
   const [dateRange, setDateRange] = useState("today");
   const [customFrom, setCustomFrom] = useState(null);
   const [customTo, setCustomTo] = useState(null);
+  const [mode, setMode] = useState('light');
+
+const toggleMode = () => {
+  setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+};
 
   // setProgress(pr)
   const [alert, setAlert] = useState({ type: "", msg: "" })
@@ -46,15 +52,18 @@ const App = () => {
             height={3}
             color='#f11946'
             progress={progress}
-
           />
-          <NavBar lang={lang} setLang={setLang} category={category} setCategory={setCategory} country={country} setCountry={setCountry} dateRange={dateRange}
+          <NavBar  mode={mode} toggleMode={toggleMode} lang={lang} setLang={setLang} category={category} setCategory={setCategory} country={country} setCountry={setCountry} dateRange={dateRange}
             setDateRange={setDateRange} customFrom={customFrom} setCustomFrom={setCustomFrom} customTo={customTo} setCustomTo={setCustomTo} />
           <Alert alert={alert} />
-          <Routes>
-            <Route path="Dashboard" element={<Dashboard />} />
-            <Route path="/" element={
+          <div className={mode === 'dark' ? 'bg-dark text-white min-vh-100' : 'bg-light text-dark min-vh-100'}>
+        <Routes>
+          <Route path="Dashboard" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
               <News
+                mode={mode}
                 setProgress={setProgress}
                 lang={lang}
                 pageSize={9}
@@ -64,34 +73,20 @@ const App = () => {
                 customFrom={customFrom}
                 customTo={customTo}
               />
-            } />
-
-            {/* <Route exact path="/" element={<News setProgress={setProgress} lang={lang} key="general" pageSize={9} category={category} country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo} />} />
-            <Route exact path="/business" element={<News setProgress={setProgress} lang={lang} key="business" pageSize={9} category='business' country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo}  />} />
-            <Route exact path="/entertainment" element={<News setProgress={setProgress} lang={lang} key="entertainment" pageSize={9} category='entertainment' country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo}  />} />
-            <Route exact path="/health" element={<News setProgress={setProgress} lang={lang} key="health" pageSize={9} category='health' country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo}  />} />
-            <Route exact path="/science" element={<News setProgress={setProgress} lang={lang} key="science" pageSize={9} category='science' country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo}  />} />
-            <Route exact path="/sports" element={<News setProgress={setProgress} lang={lang} key="sports" pageSize={9} category='sports' country={country} dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo}  />} />
-            <Route exact path="/technology" element={<News setProgress={setProgress} lang={lang} key="technology" pageSize={9} category='technology' country={country}  dateRange={dateRange}
-  customFrom={customFrom} customTo={customTo} />} /> */}
-            <Route exact path="/notes" element={<Notes showAlert={showAlert} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="Home" element={<Home showAlert={showAlert} />} />
-            <Route path="/reset-password" element={<ResetPassword showAlert={showAlert} />} />
-            <Route path="Login" element={<Login showAlert={showAlert} />} />
-            <Route path="Signup" element={<Signup showAlert={showAlert} />} />
-          </Routes>
+            }
+          />
+          <Route exact path="/notes" element={<Notes showAlert={showAlert} mode={mode}/>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="Home" element={<Home showAlert={showAlert} mode={mode}/>} />
+          <Route path="/reset-password" element={<ResetPassword showAlert={showAlert} />} />
+          <Route path="Login" element={<Login showAlert={showAlert} />} />
+          <Route path="Signup" element={<Signup showAlert={showAlert} />} />
+        </Routes>
+      </div>
         </BrowserRouter>
       </NoteState>
-
     </div>
-    // businessentertainmentgeneralhealthsciencesportstechnology
   )
 
 }
