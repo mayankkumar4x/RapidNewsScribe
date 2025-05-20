@@ -1,3 +1,107 @@
+# 🗞️ RapidNewsScribe
+
+**RapidNewsScribe** is a full-stack news web application built using the **MERN Stack**, integrated with **Azure Cognitive Services** and **GNews API** to deliver real-time, multilingual, and interactive news reading experiences.
+
+---
+
+## 🚀 Features
+
+### 1. 🔍 News Exploration
+- Fetches real-time news using **GNews API**.
+- Each news article displays:
+  - Image  
+  - Title  
+  - Description  
+  - Publisher Name  
+  - Published Date & Time  
+  - Source (e.g., BBC News)  
+- Interactive actions:  
+  - **Listen** (Text-to-Speech)  
+  - **Translate**  
+  - **Read More**  
+  - **Save Article**
+
+### 2. 🎯 Filtering Options
+- Filter news by:
+  - **Domain** (e.g., Technology, Health)
+  - **Country**
+- Ensures targeted and relevant content delivery.
+
+### 3. 🔊 Text-to-Speech
+- Powered by **Azure Text-to-Speech API**.
+- Supports **multi-language** article narration.
+- User controls:
+  - **Listen**
+  - **Stop**
+
+### 4. 🌐 Language Translation
+- Utilizes **Azure Translation** and **Language Detection APIs**.
+- Users can:
+  - Detect source language
+  - Translate content into any supported target language
+
+### 5. 🔐 User Authentication
+- Secure Sign-up with **Email OTP Verification** using **Nodemailer**.
+- Features:
+  - Login
+  - Logout
+  - Forgot Password
+- Authentication & user protection via **JWT** and **Bcrypt**.
+
+### 6. 💾 Save News with Notes
+- Save articles for future reading.
+- Each saved article retains the **original source URL**.
+
+### 7. 📝 Notes Management
+- Link personal notes to saved articles.
+- Notes include:
+  - Title  
+  - Description  
+  - Associated News Link  
+- Actions:
+  - **View**, **Edit**, **Delete**
+
+### 8. 📊 User Dashboard
+- Quick access to saved articles, notes, and preferences.
+
+### 9. 🌙 UI/UX Enhancements
+- Toggle between **Light** and **Dark** themes.
+- Clean, intuitive, and responsive interface.
+
+### 10. 📄 Additional Pages
+- **About Us**  
+- **Contact Us**
+
+---
+
+## 🧰 Tech Stack
+
+### Frontend
+- **React.js** with Axios  
+- **Tailwind CSS / CSS3**  
+
+### Backend
+- **Node.js** & **Express.js**  
+- **MongoDB** with Mongoose
+
+### External Services
+- **GNews API** – Real-time news articles  
+- **Azure Text-to-Speech API**  
+- **Azure Translator API**  
+- **Nodemailer** – OTP Verification via Email
+
+### Authentication
+- **JWT** – Token-based authentication  
+- **Bcrypt** – Password hashing
+
+---
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
