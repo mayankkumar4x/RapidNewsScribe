@@ -77,8 +77,7 @@
 ## 🧰 Tech Stack
 
 ### Frontend
-- **React.js** with Axios  
-- **Tailwind CSS / CSS3**  
+- **React.js** with Axios   
 
 ### Backend
 - **Node.js** & **Express.js**  
