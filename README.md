@@ -1,6 +1,6 @@
 # 🗞️ RapidNewsScribe
 
-**RapidNewsScribe** is a full-stack news web application built using the **MERN Stack**, integrated with **Azure Cognitive Services** and **GNews API** to deliver real-time, multilingual, and interactive news reading experiences.
+**RapidNewsScribe** is a full-stack news web application built using the **MERN Stack**, integrated with **Azure Cognitive Services** and **GNews API** to deliver real-time, multilingual and interactive news reading experiences.
 
 ---
 
